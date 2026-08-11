@@ -1,174 +1,226 @@
-// lib/data.ts — Single source of truth for all portfolio content
+// lib/data.ts — Single source of truth for all portfolio content.
+// Copy here is CV-accurate as of Aug 2026 and matches the "Scroll Acts" design.
 
 export const personal = {
   name: "Abdullah Al Adib",
   title: "Junior Backend Developer",
-  tagline: "I build APIs that don't break at 3AM.",
-  bio: "I'm a backend developer at Govaly Ltd, focused on building reliable REST APIs and backend systems that actually hold up in production. I graduated with a CSE degree from Premier University in 2024 and jumped straight into real-world engineering — refactoring legacy code, shipping new features, and learning DevOps along the way. I care about clean architecture, readable code, and shipping things that work.",
+  eyebrow: "Backend developer · Dhaka, Bangladesh",
+  intro:
+    "I build Python/FastAPI systems for teams that can’t afford downtime — async APIs, PostgreSQL that stays fast under load, and migrations that don’t lose a row.",
   email: "24adib75@gmail.com",
   phone: "+880 1877 555484",
+  phoneHref: "tel:+8801877555484",
   github: "https://github.com/a2adib",
+  githubHandle: "a2adib",
   linkedin: "https://linkedin.com/in/abdullah-al-adib-01a1b6313",
+  linkedinHandle: "abdullah-al-adib",
   location: "Dhaka, Bangladesh",
   cvUrl: "/Abdullah_Al_Adib_CV.pdf",
 };
 
-export const skills = {
-  Backend: [
-    { name: "Node.js", level: 85 },
-    { name: "REST API Design", level: 85 },
-    { name: "Python", level: 70 },
-    { name: "Express.js", level: 80 },
+export const navLinks = [
+  { num: "01", label: "Backend", href: "#act1" },
+  { num: "02", label: "Work", href: "#act2" },
+  { num: "03", label: "Track record", href: "#act3" },
+  { num: "04", label: "How I work", href: "#act4" },
+];
+
+export const metrics = [
+  { value: 3, suffix: "×", label: "Concurrent requests" },
+  { value: 40, suffix: "%", label: "Faster responses" },
+  { value: 35, suffix: "%", label: "Faster reports" },
+  { value: 70, suffix: "%", label: "Core test coverage" },
+];
+
+export const backendAct = {
+  label: "01 — Backend systems",
+  heading: "Legacy code, made to move.",
+  body: "At Govaly I took a synchronous FastAPI codebase and rebuilt it async, end to end — then kept going into caching, schema drift, and the query patterns nobody had time to look at.",
+  chips: [
+    "FastAPI",
+    "async SQLAlchemy",
+    "SQLModel",
+    "Alembic",
+    "PostgreSQL",
+    "Redis",
+    "Pydantic",
+    "pytest",
   ],
-  Frontend: [
-    { name: "JavaScript", level: 85 },
-    { name: "ReactJS", level: 75 },
-    { name: "HTML & CSS", level: 90 },
-    { name: "Tailwind CSS", level: 70 },
-  ],
-  "Tools & DevOps": [
-    { name: "Git & GitHub", level: 85 },
-    { name: "Deployment / DevOps", level: 60 },
-    { name: "MS Office", level: 80 },
-    { name: "REST API Testing", level: 75 },
-  ],
+  codeFile: "reports/service.py",
+  responseTime: {
+    label: "Response time",
+    before: "800ms",
+    after: "480ms",
+    caption: "Redis caching on high-traffic endpoints.",
+  },
+  dataIntegrity: {
+    label: "Data integrity",
+    lines: [
+      { ok: false, text: "insert failed — schema drift" },
+      { ok: false, text: "insert failed — schema drift" },
+      { ok: true, text: "alembic revision applied" },
+      { ok: true, text: "daily transactions clean" },
+    ],
+    caption: "Financial pipelines restored end to end.",
+  },
 };
 
 export const projects = [
   {
-    id: "freelance-marketplace",
+    slug: "freelance-marketplace",
     title: "Freelance Marketplace",
     description:
-      "A full-stack freelance platform with separate frontend and backend repos. Features job posting, bidding system, and user authentication. Built with a clean API-first approach on the backend.",
-    tags: ["Node.js", "REST API", "React", "Full-Stack"],
-    category: "Full-Stack",
-    githubFrontend: "https://github.com/a2adib/freelance_marketplace_frontend",
-    githubBackend: "https://github.com/a2adib/freelance_marketplace_backend",
-    github: "https://github.com/a2adib/freelance_marketplace_frontend",
-    live: null,
-    featured: true,
-    icon: "🛒",
-    color: "#00D4FF",
+      "Full-stack platform with separate frontend and backend repos — job posting, a bidding system, and authentication, built API-first.",
+    stack: "Node.js · REST API · React",
+    links: [
+      { label: "Backend ↗", href: "https://github.com/a2adib/freelance_marketplace_backend" },
+      { label: "Frontend ↗", href: "https://github.com/a2adib/freelance_marketplace_frontend" },
+    ],
   },
   {
-    id: "clubsphere",
+    slug: "clubsphere",
     title: "ClubSphere",
     description:
-      "A club management and social platform with dedicated frontend and backend. Handles member management, events, and announcements. Clean separation of concerns with a RESTful backend.",
-    tags: ["Node.js", "React", "REST API", "Backend"],
-    category: "Full-Stack",
-    githubFrontend: "https://github.com/a2adib/clubsphere-frontend",
-    githubBackend: "https://github.com/a2adib/clubsphere-backend",
-    github: "https://github.com/a2adib/clubsphere-frontend",
-    live: null,
-    featured: true,
-    icon: "🌐",
-    color: "#00FF94",
+      "Club management and social platform — members, events, and announcements behind a clean RESTful backend.",
+    stack: "Node.js · React · REST API",
+    links: [
+      { label: "Backend ↗", href: "https://github.com/a2adib/clubsphere-backend" },
+      { label: "Frontend ↗", href: "https://github.com/a2adib/clubsphere-frontend" },
+    ],
   },
   {
-    id: "formelting-app",
-    title: "Formelting App",
-    description:
-      "A formula and melting point reference application. Built for technical users who need fast, accurate data lookups. Clean UI with a focus on usability and performance.",
-    tags: ["JavaScript", "React", "Frontend"],
-    category: "Frontend",
-    github: "https://github.com/a2adib/Formelting_App",
-    live: null,
-    featured: true,
-    icon: "🧪",
-    color: "#7C3AED",
-  },
-  {
-    id: "shooting-game",
-    title: "1v1 Shooting Game",
-    description:
-      "A browser-based 1v1 shooting game built with JavaScript. Real-time game logic, player movement, collision detection, and a live score system — all in vanilla JS.",
-    tags: ["JavaScript", "Game Dev", "Canvas API"],
-    category: "Game",
-    github: "https://github.com/a2adib/shooting_1v1_game",
-    live: null,
-    featured: true,
-    icon: "🎮",
-    color: "#FF6B6B",
-  },
-  {
-    id: "customer-support",
+    slug: "customer-support-zone",
     title: "Customer Support Zone",
     description:
-      "A ticket management dashboard for creating, tracking, and updating customer support requests. Features status tracking, user feedback, and a responsive design that works across all devices.",
-    tags: ["JavaScript", "React", "Dashboard"],
-    category: "Frontend",
-    github: "https://github.com/a2adib",
-    live: null,
-    featured: false,
-    icon: "🎫",
-    color: "#F59E0B",
+      "Ticket dashboard for creating, tracking, and updating customer requests — modular UI for status changes and feedback.",
+    stack: "JavaScript · React · Dashboard",
+    links: [{ label: "Repository ↗", href: "https://github.com/a2adib" }],
   },
   {
-    id: "emergency-contact",
-    title: "Emergency Contact Manager",
+    slug: "emergency-contact",
+    title: "Emergency Contact",
     description:
-      "Full CRUD contact manager with fast lookup and quick edit capabilities. Designed with accessibility and reliability as core requirements for real-world usage.",
-    tags: ["JavaScript", "CRUD", "Frontend"],
-    category: "Frontend",
-    github: "https://github.com/a2adib",
-    live: null,
-    featured: false,
-    icon: "📞",
-    color: "#10B981",
+      "Contact manager with full CRUD and an interface built for fast lookup and quick edits under pressure.",
+    stack: "JavaScript · CRUD · Frontend",
+    links: [{ label: "Repository ↗", href: "https://github.com/a2adib" }],
+  },
+  {
+    slug: "formelting-app",
+    title: "Formelting App",
+    description:
+      "Formula and melting-point reference for technical users who need fast, accurate lookups.",
+    stack: "JavaScript · React",
+    links: [{ label: "Repository ↗", href: "https://github.com/a2adib/Formelting_App" }],
+  },
+  {
+    slug: "shooting-1v1",
+    title: "1v1 Shooting Game",
+    description:
+      "Browser shooter in vanilla JS — real-time game loop, movement, collision detection, live scoring.",
+    stack: "JavaScript · Canvas API",
+    links: [{ label: "Repository ↗", href: "https://github.com/a2adib/shooting_1v1_game" }],
   },
 ];
 
-export const experience = [
+type TimelineEntry = {
+  period: string;
+  type: string;
+  role: string;
+  org: string;
+  /** Numbered achievement list — roles. */
+  bullets?: string[];
+  /** Single line instead of bullets — education. */
+  body?: string;
+};
+
+export const timeline: TimelineEntry[] = [
   {
-    title: "Junior Backend Developer",
-    company: "Govaly Ltd.",
-    period: "Jan 2025 – Present",
+    period: "Jan 2025 — Present",
     type: "Full-time",
+    role: "Junior Backend Developer,",
+    org: "Govaly Ltd.",
     bullets: [
-      "Develop, refactor, test, and debug REST APIs for new and existing features across multiple backend projects",
-      "Contribute to DevOps workflows with hands-on experience in deployment and infrastructure",
-      "Collaborate across teams to ship reliable backend services at production scale",
+      "Migrated the whole legacy codebase from sync to async FastAPI/SQLAlchemy, removing blocking I/O and supporting ~3× more concurrent requests.",
+      "Cut response times on high-traffic endpoints by 40% (800ms → 480ms) with a Redis caching layer.",
+      "Restored data integrity across financial reporting pipelines by diagnosing ORM/schema drift and shipping targeted Alembic migrations.",
+      "Improved multi-join report queries by 35%, refactoring N+1 and fan-out patterns into Python-side aggregation.",
+      "Shipped 4+ production reporting APIs — expense P/L, job-at-a-glance, station-wise billing, party-wise registers.",
+      "Raised test coverage on core legacy modules to 70%, cutting regressions shipped to production.",
     ],
   },
   {
-    title: "Co-Founder",
-    company: "Backloggers",
-    period: "Aug 2020 – Jun 2022",
+    period: "Aug 2020 — Jun 2022",
     type: "Startup",
+    role: "Co-Founder,",
+    org: "Backloggers",
     bullets: [
-      "Led operations and team execution for an educational support platform",
-      "Drove marketing and customer communication to build consistent growth",
-      "Managed cross-functional team coordination and product roadmap",
+      "Led operations and team execution for an educational support platform.",
+      "Supported marketing and customer communication to drive steady growth.",
     ],
+  },
+  {
+    period: "2020 — 2025",
+    type: "Education",
+    role: "B.Sc. Computer Science & Engineering,",
+    org: "Premier University",
+    body: "CGPA 3.06 · Thesis completed.",
   },
 ];
 
-export const education = [
+export const skillGroups = [
+  { title: "Languages", items: ["Python", "JavaScript"] },
   {
-    degree: "B.Sc. in Computer Science and Engineering",
-    institution: "Premier University",
-    period: "2020 – 2024",
-    gpa: "3.06",
-    note: "Thesis: Completed",
+    title: "Backend",
+    items: ["FastAPI", "SQLModel", "async SQLAlchemy", "Alembic · Pydantic", "REST API design"],
+  },
+  {
+    title: "Data & infra",
+    items: ["PostgreSQL", "Redis", "VPS deployment", "Uvicorn · Nginx · systemd"],
+  },
+  { title: "Tooling", items: ["Git · uv · just", "ruff · pytest", "ReactJS · HTML/CSS"] },
+];
+
+export const principles = [
+  {
+    num: "01",
+    title: "Read the system first",
+    body: "Before changing a line I trace the request path, the schema, and where it actually hurts. Most bugs are drift, not logic.",
+  },
+  {
+    num: "02",
+    title: "Measure, then change",
+    body: "Timings and query counts before the refactor, the same numbers after. If it isn’t measurably better, it doesn’t ship.",
+  },
+  {
+    num: "03",
+    title: "Leave tests behind",
+    body: "Coverage on the modules that carry money and data, so the next person can move fast without breaking the ledger.",
   },
 ];
+
+export const contact = {
+  label: "Write to me",
+  heading: "Got a backend that needs a steadier hand?",
+  draftPrefix: "Hey Abdullah, ",
+  draftPlaceholder: "we need someone to…",
+  copyright: "© 2026 Abdullah Al Adib",
+};
 
 export const seo = {
   title: "Abdullah Al Adib — Backend Developer",
   description:
-    "Junior Backend Developer at Govaly Ltd. I build production-ready REST APIs and backend systems using Node.js, JavaScript, and Python. Based in Bangladesh.",
+    "Junior Backend Developer at Govaly Ltd. I build Python/FastAPI systems that stay fast under load — async APIs, PostgreSQL, Redis caching, and migrations that don't lose a row. Based in Dhaka, Bangladesh.",
   keywords: [
     "Abdullah Al Adib",
     "backend developer",
-    "Node.js developer",
+    "Python developer",
+    "FastAPI",
+    "async SQLAlchemy",
+    "PostgreSQL",
     "REST API",
-    "JavaScript developer",
     "Bangladesh developer",
     "Govaly",
     "Premier University",
-    "web developer portfolio",
-    "full-stack developer",
   ],
   ogImage: "/og-image.png",
   url: "https://a2adib.vercel.app",

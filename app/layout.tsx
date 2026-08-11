@@ -1,29 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Fira_Code, Syne } from "next/font/google";
+import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { seo, personal } from "@/lib/data";
 
-// Display font — distinctive, modern
-const syne = Syne({
+// Display and body — one family, weight 500 for every heading.
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "700", "800"],
+  variable: "--font-sans",
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-// Body font — clean, readable
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["300", "400", "500", "600"],
-  display: "swap",
-});
-
-// Mono font — for code/tech elements
-const firaCode = Fira_Code({
+// Every label, numeral, chip, code block, and metadata link.
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["300", "400", "500"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -74,7 +66,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#080C14",
+  themeColor: "#faf9f7",
   width: "device-width",
   initialScale: 1,
 };
@@ -85,9 +77,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${syne.variable} ${spaceGrotesk.variable} ${firaCode.variable} font-body bg-bg-primary text-text-primary antialiased`}
+        className={`${instrumentSans.variable} ${jetbrainsMono.variable} bg-paper font-sans text-ink antialiased`}
       >
         {children}
       </body>

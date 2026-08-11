@@ -1,23 +1,23 @@
 import Navbar from "@/components/Navbar";
+import ScrollProgress from "@/components/ScrollProgress";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Projects from "@/components/sections/Projects";
-import Skills from "@/components/sections/Skills";
-import Experience from "@/components/sections/Experience";
+import BackendSystems from "@/components/sections/BackendSystems";
+import SelectedWork from "@/components/sections/SelectedWork";
+import TrackRecord from "@/components/sections/TrackRecord";
+import HowIWork from "@/components/sections/HowIWork";
 import Contact from "@/components/sections/Contact";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <main className="relative">
+      <ScrollProgress />
       <Navbar />
       <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Experience />
+      <BackendSystems />
+      <SelectedWork />
+      <TrackRecord />
+      <HowIWork />
       <Contact />
-      <Footer />
     </main>
   );
 }
