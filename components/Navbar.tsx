@@ -1,114 +1,95 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { personal } from "@/lib/data";
-
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
-];
+import { useEffect, useState } from "react";
+import { navLinks } from "@/lib/data";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // The overlay covers the page; keep the page behind it from scrolling.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleNav = (href: string) => {
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-bg-primary/90 backdrop-blur-md border-b border-white/5 py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#hero"
-          onClick={(e) => { e.preventDefault(); handleNav("#hero"); }}
-          className="font-display font-bold text-lg tracking-tight"
-        >
-          <span className="gradient-text">adib</span>
-          <span className="text-text-muted font-mono text-sm">.dev</span>
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-5 border-b border-[rgba(20,20,15,.07)] bg-[rgba(250,249,247,.78)] px-header-x py-[18px] backdrop-blur-[10px]">
+        <a href="#top" className="font-mono text-mono-sm tracking-[.04em]">
+          a2adib<span className="text-accent">.</span>dev
         </a>
 
-        {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-nav font-mono text-mono-2xs uppercase tracking-[.12em] text-ink-mute nav:flex">
           {navLinks.map((link) => (
-            <li key={link.href}>
-              <button
-                onClick={() => handleNav(link.href)}
-                className="font-mono text-sm text-text-muted hover:text-accent-cyan transition-colors duration-200 tracking-wide"
-              >
-                {link.label}
-              </button>
-            </li>
+            <a key={link.href} href={link.href}>
+              <span className="text-ink-nav">{link.num}</span> {link.label}
+            </a>
           ))}
-        </ul>
+        </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="flex items-center gap-3">
+          {/* Below the breakpoint the overlay carries this CTA, so the two
+              controls never compete for the same narrow header. */}
           <a
-            href={personal.cvUrl}
-            download
-            className="btn-outline px-4 py-2 text-sm font-mono"
+            href="#contact"
+            className="hidden rounded-full border border-ink px-4 py-[9px] font-mono text-mono-2xs uppercase tracking-[.1em] nav:inline-block"
           >
-            Download CV
+            Start a project →
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="rounded-full border border-ink px-4 py-[9px] font-mono text-mono-2xs uppercase tracking-[.1em] nav:hidden"
+          >
+            {menuOpen ? "Close" : "Menu"}
+          </button>
+        </div>
+      </header>
+
+      {/* Full-screen overlay — the mobile counterpart of the centre nav. */}
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          className="fixed inset-0 z-40 flex flex-col justify-center gap-8 bg-paper px-side pt-20 nav:hidden"
+        >
+          <nav className="flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-mono text-[clamp(22px,6vw,32px)] uppercase tracking-[.06em]"
+              >
+                <span className="text-ink-nav">{link.num}</span> {link.label}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="#contact"
+            onClick={() => setMenuOpen(false)}
+            className="self-start rounded-full border border-ink px-5 py-3 font-mono text-mono-xs uppercase tracking-[.1em]"
+          >
+            Start a project →
           </a>
         </div>
-
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-text-muted hover:text-accent-cyan transition-colors"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </nav>
-
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-bg-secondary/95 backdrop-blur-md border-b border-white/5 px-6 pb-6 pt-2">
-          <ul className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <button
-                  onClick={() => handleNav(link.href)}
-                  className="text-text-muted hover:text-accent-cyan font-mono text-sm w-full text-left py-1 transition-colors"
-                >
-                  {link.label}
-                </button>
-              </li>
-            ))}
-            <li>
-              <a
-                href={personal.cvUrl}
-                download
-                className="btn-outline px-4 py-2 text-sm font-mono inline-block mt-2"
-              >
-                Download CV
-              </a>
-            </li>
-          </ul>
-        </div>
       )}
-    </header>
+    </>
   );
 }
