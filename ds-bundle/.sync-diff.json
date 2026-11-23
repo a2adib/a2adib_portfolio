@@ -1,0 +1,37 @@
+{
+  "styleChanged": false,
+  "anchorUsed": false,
+  "anchorReason": "not_provided",
+  "keyedBy": "renderHashes",
+  "unchanged": [],
+  "changed": [],
+  "added": [
+    "About",
+    "Contact",
+    "Experience",
+    "Footer",
+    "Hero",
+    "Navbar",
+    "Projects",
+    "Skills"
+  ],
+  "removed": [],
+  "renderChurned": [],
+  "upload": {
+    "any": true,
+    "components": [
+      "About",
+      "Contact",
+      "Experience",
+      "Footer",
+      "Hero",
+      "Navbar",
+      "Projects",
+      "Skills"
+    ],
+    "deletePaths": [],
+    "bundle": true,
+    "styling": true,
+    "aux": true
+  }
+}

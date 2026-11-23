@@ -1,0 +1,15 @@
+[
+  {
+    "sheet": 1,
+    "components": [
+      "About",
+      "Contact",
+      "Experience",
+      "Footer",
+      "Hero",
+      "Navbar",
+      "Projects",
+      "Skills"
+    ]
+  }
+]

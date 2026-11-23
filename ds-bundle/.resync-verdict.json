@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "ok": true,
+  "shape": "package",
+  "anchor": "not_provided",
+  "learningsUnmerged": [],
+  "stages": {
+    "build": {
+      "ok": true,
+      "exit": 0,
+      "skipped": null
+    },
+    "diff": {
+      "ok": true,
+      "exit": 0,
+      "skipped": null
+    },
+    "validate": {
+      "ok": true,
+      "exit": 0,
+      "skipped": null
+    },
+    "capture": {
+      "ok": true,
+      "exit": 0,
+      "skipped": null
+    }
+  },
+  "verification": {
+    "unchanged": [],
+    "changed": [],
+    "added": [
+      "About",
+      "Contact",
+      "Experience",
+      "Footer",
+      "Hero",
+      "Navbar",
+      "Projects",
+      "Skills"
+    ],
+    "removed": [],
+    "pendingGrade": [],
+    "canary": null
+  },
+  "upload": {
+    "any": true,
+    "components": [
+      "About",
+      "Contact",
+      "Experience",
+      "Footer",
+      "Hero",
+      "Navbar",
+      "Projects",
+      "Skills"
+    ],
+    "deletePaths": [],
+    "bundle": true,
+    "styling": true,
+    "aux": true
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "global": "PortfolioDS",
+  "pkg": "abdullah-portfolio",
+  "pkgDir": "/Users/a2adib/workStation/portfolio",
+  "extraEntries": [],
+  "exported": [],
+  "storybookStatic": null,
+  "keyRecipe": 7,
+  "cfgSliceGlobal": "a139d95ad8ab0a8ba08b44a258c54602e36090304087f48fe923c61aa5a8ae08",
+  "components": [
+    {
+      "name": "About",
+      "group": "sections",
+      "srcSha": null,
+      "sourceKey": "5ccbd8d85f91865b",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Contact",
+      "group": "sections",
+      "srcSha": null,
+      "sourceKey": "723901bd0a197b04",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Experience",
+      "group": "sections",
+      "srcSha": null,
+      "sourceKey": "c53e48c736625a97",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Footer",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "b03ba029bd97ce46",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Hero",
+      "group": "sections",
+      "srcSha": null,
+      "sourceKey": "20cf67cbce9a743f",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Navbar",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "79bc584402e16158",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Projects",
+      "group": "sections",
+      "srcSha": null,
+      "sourceKey": "92f6fc160a4af828",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Skills",
+      "group": "sections",
+      "srcSha": null,
+      "sourceKey": "0ecd09bcda703db6",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    }
+  ]
+}
