@@ -1,32 +1,46 @@
-import Reveal from "@/components/Reveal";
+"use client";
+
+import { motion } from "framer-motion";
 import { principles } from "@/lib/data";
 
 export default function HowIWork() {
   return (
-    <section
-      id="act4"
-      className="border-t border-rule bg-ink px-side py-section text-paper-tint"
-    >
-      <div className="mx-auto max-w-page">
-        <p className="mb-[18px] font-mono text-mono-2xs uppercase tracking-[.16em] text-accent">
-          04 — How I work
-        </p>
+    <section id="act4" className="relative border-b border-white/10 bg-vice-panel/40 py-12 sm:py-14">
+      <div className="mx-auto max-w-[1380px] px-5 sm:px-8">
+        <div className="mb-7">
+          <p className="font-mono text-xs uppercase tracking-[0.22em] text-vice-pink">
+            MISSION 04 // NEON STRIP
+          </p>
+          <h2 className="mt-2 font-display text-[clamp(42px,6vw,76px)] uppercase leading-[0.94] tracking-[0.03em] text-white">
+            THE STREET <span className="text-vice-gradient">CODE</span>
+          </h2>
+        </div>
 
-        <Reveal
-          as="h2"
-          className="mb-act-head max-w-h2-15 text-h2-act font-medium text-paper-tint"
-        >
-          Understand it, then make it boring.
-        </Reveal>
+        <div className="grid gap-6 md:grid-cols-3">
+          {principles.map((p, idx) => (
+            <motion.div
+              key={p.num}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              className="clip-cut relative overflow-hidden border border-white/15 bg-vice-bg p-7 shadow-hud-panel"
+            >
+              <div className="absolute inset-x-0 top-0 h-[3px] bg-vice-neon" />
+              <span className="pointer-events-none absolute -right-2 -top-4 font-display text-[110px] leading-none text-white/[0.04]">
+                {p.num}
+              </span>
 
-        {/* Same hairline-grid technique as the hero metrics, inverted. */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-px border border-ink-rule bg-ink-rule">
-          {principles.map((principle) => (
-            <Reveal key={principle.num} className="bg-ink p-act-card">
-              <p className="mb-[18px] font-mono text-mono-xs text-accent">{principle.num}</p>
-              <h3 className="mb-3 text-h3-dark font-medium">{principle.title}</h3>
-              <p className="text-card-body text-ink-body">{principle.body}</p>
-            </Reveal>
+              <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-vice-cyan">
+                RULE {p.num}
+              </p>
+              <h3 className="mt-3 font-display text-3xl tracking-[0.04em] text-white">
+                {p.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-vice-muted sm:text-[15px]">
+                {p.body}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
