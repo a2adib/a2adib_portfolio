@@ -2,13 +2,25 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { AlertTriangle, CheckCircle2, Cpu, Database, Play, RotateCcw, Zap } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  CheckCircle2,
+  Cpu,
+  Database,
+  Flame,
+  Play,
+  RotateCcw,
+  Zap,
+} from "lucide-react";
 import { backendAct } from "@/lib/data";
 import { useGame } from "@/components/game/GameContext";
 
 export default function BackendSystems() {
   const [asyncActive, setAsyncActive] = useState(false);
   const [redisActive, setRedisActive] = useState(false);
+  const [burstCount, setBurstCount] = useState(0);
+  const [bursting, setBursting] = useState(false);
   const { triggerMission, playClick } = useGame();
 
   const handleDeployAsync = () => {
@@ -37,14 +49,35 @@ export default function BackendSystems() {
     );
   };
 
+  const handleFireTraffic = () => {
+    playClick();
+    setBurstCount((c) => c + 1);
+    setBursting(true);
+    const duration = redisActive ? 1100 : asyncActive ? 1500 : 2100;
+    setTimeout(() => setBursting(false), duration);
+
+    if (asyncActive && redisActive) {
+      triggerMission(
+        "stress-test-passed",
+        "STRESS TEST CLEARED",
+        "100 concurrent requests cleared at 480ms (3× throughput)",
+        "+300 RESPECT",
+        "gold"
+      );
+    }
+  };
+
   const handleReset = () => {
     playClick();
     setAsyncActive(false);
     setRedisActive(false);
+    setBursting(false);
   };
 
   const currentLatency = redisActive ? 480 : asyncActive ? 610 : 800;
   const latencyPercent = Math.round((currentLatency / 800) * 100);
+  const throughput = redisActive ? 185 : asyncActive ? 120 : 58;
+  const packetDuration = redisActive ? 0.55 : asyncActive ? 0.95 : 1.7;
 
   return (
     <section id="act1" className="relative border-b border-white/10 py-12 sm:py-14">
@@ -58,13 +91,13 @@ export default function BackendSystems() {
             <h2 className="mt-2 font-display text-[clamp(42px,6vw,76px)] uppercase leading-[0.94] tracking-[0.03em] text-white">
               {backendAct.heading}
             </h2>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-vice-muted">
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-vice-muted">
               {backendAct.body}
             </p>
           </div>
 
           {/* Interactive Mission Trigger Controls */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
             <button
               type="button"
               onClick={handleDeployAsync}
@@ -93,6 +126,15 @@ export default function BackendSystems() {
               <span>{redisActive ? "REDIS + ALEMBIC LIVE" : "2. ENGAGE REDIS"}</span>
             </button>
 
+            <button
+              type="button"
+              onClick={handleFireTraffic}
+              className="clip-cut-sm inline-flex items-center gap-2 border border-vice-gold/60 bg-vice-gold/15 px-4 py-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-vice-gold transition hover:bg-vice-gold hover:text-vice-bg"
+            >
+              <Flame className="h-4 w-4" />
+              <span>FIRE 100 REQ/S</span>
+            </button>
+
             {(asyncActive || redisActive) && (
               <button
                 type="button"
@@ -103,6 +145,61 @@ export default function BackendSystems() {
                 <RotateCcw className="h-4 w-4" />
               </button>
             )}
+          </div>
+        </div>
+
+        {/* Live Animated Request Pipeline Visualizer */}
+        <div className="mb-6 overflow-hidden border border-white/15 bg-vice-panel/90 p-4 shadow-hud-panel">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] uppercase tracking-[0.14em]">
+            <span className="flex items-center gap-2 text-vice-cyan">
+              <Activity className="h-3.5 w-3.5" />
+              LIVE TRAFFIC SIMULATOR //{" "}
+              <strong className={redisActive ? "text-vice-green" : asyncActive ? "text-vice-gold" : "text-vice-red"}>
+                {redisActive
+                  ? "ASYNC + REDIS OVERDRIVE"
+                  : asyncActive
+                    ? "ASYNC WORKERS ACTIVE"
+                    : "SYNC BLOCKING QUEUE"}
+              </strong>
+            </span>
+            <span className="text-vice-muted">
+              THROUGHPUT: <strong className="text-white">{throughput} REQ/S</strong> · LATENCY:{" "}
+              <strong className={redisActive ? "text-vice-cyan" : "text-vice-pink"}>
+                {currentLatency}MS
+              </strong>
+            </span>
+          </div>
+
+          <div className="relative h-10 overflow-hidden border border-white/10 bg-vice-bg/95">
+            <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center font-mono text-[10px] uppercase tracking-[0.14em] text-vice-dim">
+              CLIENT BURST →
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-[10px] uppercase tracking-[0.14em] text-vice-dim">
+              → POSTGRES / REDIS
+            </div>
+
+            {/* Animated Request Packets */}
+            {Array.from({ length: bursting ? 14 : 5 }).map((_, i) => (
+              <motion.span
+                key={`${burstCount}-${i}-${redisActive}-${asyncActive}`}
+                initial={{ left: "12%", opacity: 0 }}
+                animate={{ left: "86%", opacity: [0, 1, 1, 0] }}
+                transition={{
+                  duration: packetDuration,
+                  delay: i * (bursting ? 0.06 : 0.35),
+                  repeat: bursting ? 0 : Infinity,
+                  ease: "linear",
+                }}
+                style={{ top: `${18 + (i % 3) * 26}%` }}
+                className={`absolute h-2 w-5 rounded-full ${
+                  redisActive
+                    ? "bg-vice-cyan shadow-neon-cyan"
+                    : asyncActive
+                      ? "bg-vice-gold"
+                      : "bg-vice-red shadow-neon-pink"
+                }`}
+              />
+            ))}
           </div>
         </div>
 

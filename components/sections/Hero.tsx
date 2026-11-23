@@ -30,7 +30,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden border-b border-white/10 pt-20 pb-10 sm:pt-24 sm:pb-12"
+      className="relative overflow-hidden border-b border-white/10 pt-8 pb-10 sm:pt-10 sm:pb-12"
     >
       {/* Leonida Sunset & Neon Atmosphere */}
       <div className="pointer-events-none absolute inset-0 bg-vice-horizon" />
