@@ -3,10 +3,10 @@
 
 export const personal = {
   name: "Abdullah Al Adib",
-  title: "Junior Backend Developer",
-  eyebrow: "Backend developer · Dhaka, Bangladesh",
+  title: "Software Engineer",
+  eyebrow: "Software Engineer · Dhaka, Bangladesh",
   intro:
-    "I build Python/FastAPI systems for teams that can’t afford downtime — async APIs, PostgreSQL that stays fast under load, and migrations that don’t lose a row.",
+    "I engineer end-to-end software systems for teams that can’t afford downtime — high-concurrency Python/FastAPI backends, responsive React/Next.js interfaces, PostgreSQL tuned for load, and zero-loss migrations.",
   email: "24adib75@gmail.com",
   phone: "+880 1877 555484",
   phoneHref: "tel:+8801877555484",
@@ -19,7 +19,7 @@ export const personal = {
 };
 
 export const navLinks = [
-  { num: "01", label: "Backend", href: "#act1" },
+  { num: "01", label: "Systems", href: "#act1" },
   { num: "02", label: "Work", href: "#act2" },
   { num: "03", label: "Track record", href: "#act3" },
   { num: "04", label: "How I work", href: "#act4" },
@@ -135,27 +135,33 @@ type TimelineEntry = {
 
 export const timeline: TimelineEntry[] = [
   {
-    period: "Jan 2025 — Present",
+    period: "Jan 2026 — Present",
     type: "Full-time",
-    role: "Junior Backend Developer,",
+    role: "Junior Software Engineer,",
     org: "Govaly Ltd.",
     bullets: [
-      "Migrated the whole legacy codebase from sync to async FastAPI/SQLAlchemy, removing blocking I/O and supporting ~3× more concurrent requests.",
-      "Cut response times on high-traffic endpoints by 40% (800ms → 480ms) with a Redis caching layer.",
-      "Restored data integrity across financial reporting pipelines by diagnosing ORM/schema drift and shipping targeted Alembic migrations.",
-      "Improved multi-join report queries by 35%, refactoring N+1 and fan-out patterns into Python-side aggregation.",
-      "Shipped 4+ production reporting APIs — expense P/L, job-at-a-glance, station-wise billing, party-wise registers.",
-      "Raised test coverage on core legacy modules to 70%, cutting regressions shipped to production.",
+      "Migrated the legacy codebase to async FastAPI/SQLAlchemy (3× concurrency); Redis caching cut response time 40% (800ms → 480ms).",
+      "Integrated Pathao, RedX, Steadfast couriers and SSLCommerz payments with webhooks, distributed locks and a discount voucher system.",
+      "Shipped 4+ production REST APIs (incl. ERP/CNF modules) with JWT/OTP auth, RBAC and audit trails, used daily by operations and finance.",
+      "Fixed schema-drift insert failures with Alembic migrations; cut multi-join report query time by 35%.",
+      "Raised test coverage to 70% with a 50+ test Dockerised integration suite; enforced Ruff and pre-commit.",
     ],
   },
   {
-    period: "Aug 2020 — Jun 2022",
+    period: "Jul 2024 — Dec 2025",
+    type: "Full-time",
+    role: "Head of Operations,",
+    org: "Govaly Ltd.",
+    body: "Led day-to-day operations before transitioning into the engineering team.",
+  },
+  {
+    period: "Aug 2021 — Feb 2023",
     type: "Startup",
     role: "Co-Founder,",
     org: "Backloggers",
     bullets: [
       "Led operations and team execution for an educational support platform.",
-      "Supported marketing and customer communication to drive steady growth.",
+      "Drove growth through marketing and direct customer communication.",
     ],
   },
   {
@@ -200,16 +206,16 @@ export const principles = [
 
 export const contact = {
   label: "Write to me",
-  heading: "Got a backend that needs a steadier hand?",
+  heading: "Need a software engineer who ships end to end?",
   draftPrefix: "Hey Abdullah, ",
   draftPlaceholder: "we need someone to…",
   copyright: "© 2026 Abdullah Al Adib",
 };
 
 export const seo = {
-  title: "Abdullah Al Adib — Backend Developer",
+  title: "Abdullah Al Adib — Software Engineer",
   description:
-    "Junior Backend Developer at Govaly Ltd. I build Python/FastAPI systems that stay fast under load — async APIs, PostgreSQL, Redis caching, and migrations that don't lose a row. Based in Dhaka, Bangladesh.",
+    "Software Engineer at Govaly Ltd. building full-stack and backend systems — Python/FastAPI, React/Next.js, Node.js, PostgreSQL, Redis caching, and zero-loss migrations. Based in Dhaka, Bangladesh.",
   keywords: [
     "Abdullah Al Adib",
     "backend developer",

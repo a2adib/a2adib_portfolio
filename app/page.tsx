@@ -1,5 +1,9 @@
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
+import { GameProvider } from "@/components/game/GameContext";
+import MissionToast from "@/components/game/MissionToast";
+import MinimapRadar from "@/components/game/MinimapRadar";
+import LoadoutWheel from "@/components/game/LoadoutWheel";
 import Hero from "@/components/sections/Hero";
 import BackendSystems from "@/components/sections/BackendSystems";
 import SelectedWork from "@/components/sections/SelectedWork";
@@ -9,15 +13,20 @@ import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
-    <main className="relative">
-      <ScrollProgress />
-      <Navbar />
-      <Hero />
-      <BackendSystems />
-      <SelectedWork />
-      <TrackRecord />
-      <HowIWork />
-      <Contact />
-    </main>
+    <GameProvider>
+      <main className="relative min-h-screen bg-vice-bg text-vice-text">
+        <ScrollProgress />
+        <Navbar />
+        <MissionToast />
+        <LoadoutWheel />
+        <MinimapRadar />
+        <Hero />
+        <BackendSystems />
+        <SelectedWork />
+        <TrackRecord />
+        <HowIWork />
+        <Contact />
+      </main>
+    </GameProvider>
   );
 }

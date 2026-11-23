@@ -1,29 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { seo, personal } from "@/lib/data";
-
-// Display and body — one family, weight 500 for every heading.
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-// Every label, numeral, chip, code block, and metadata link.
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(seo.url),
   title: {
-    default: seo.title,
-    template: `%s | Abdullah Al Adib`,
+    default: `${personal.name} // Vice Stack Software Engineer`,
+    template: `%s | ${personal.name}`,
   },
   description: seo.description,
   keywords: seo.keywords,
@@ -41,7 +24,7 @@ export const metadata: Metadata = {
         url: seo.ogImage,
         width: 1200,
         height: 630,
-        alt: `${personal.name} — Backend Developer Portfolio`,
+        alt: `${personal.name} — Software Engineer Portfolio`,
       },
     ],
   },
@@ -66,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf9f7",
+  themeColor: "#08060e",
   width: "device-width",
   initialScale: 1,
 };
@@ -77,10 +60,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${instrumentSans.variable} ${jetbrainsMono.variable} bg-paper font-sans text-ink antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning className="dark">
+      <body className="bg-vice-bg font-sans text-vice-text antialiased selection:bg-vice-pink/40 selection:text-white">
         {children}
       </body>
     </html>
