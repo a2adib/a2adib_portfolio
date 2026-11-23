@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDownRight, Crosshair, Flame, Radio, Shield, UserCheck, Zap } from "lucide-react";
+import { ArrowDownRight, Crosshair, Download, Flame, Radio, Shield, UserCheck, Zap } from "lucide-react";
 import { metrics, personal } from "@/lib/data";
 import { useGame } from "@/components/game/GameContext";
 
@@ -143,12 +143,30 @@ export default function Hero() {
             </button>
 
             <a
+              href={personal.cvUrl}
+              download="CV_of_Abdullah_Al_Adib.pdf"
+              onClick={() =>
+                triggerMission(
+                  "cv-downloaded",
+                  "DOSSIER DOWNLOADED",
+                  "CV_of_Abdullah_Al_Adib.pdf saved",
+                  "+150 XP",
+                  "cyan"
+                )
+              }
+              className="inline-flex items-center gap-2 border border-vice-gold/50 bg-vice-gold/10 px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.15em] text-vice-gold transition hover:bg-vice-gold hover:text-vice-bg"
+            >
+              <Download className="h-4 w-4" />
+              <span>DOWNLOAD CV</span>
+            </a>
+
+            <a
               href="#contact"
               onClick={() => playClick()}
-              className="inline-flex items-center gap-2 border border-white/15 bg-white/5 px-5 py-3.5 font-mono text-xs uppercase tracking-[0.15em] text-vice-text transition hover:border-vice-gold hover:text-vice-gold"
+              className="inline-flex items-center gap-2 border border-white/15 bg-white/5 px-5 py-3.5 font-mono text-xs uppercase tracking-[0.15em] text-vice-text transition hover:border-vice-pink hover:text-vice-pink"
             >
               <Radio className="h-4 w-4 text-vice-pink" />
-              <span>SAFEHOUSE COMMS</span>
+              <span>COMMS</span>
             </a>
           </motion.div>
         </div>
