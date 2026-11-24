@@ -18,13 +18,22 @@ interface GameContextValue {
   activeDistrict: DistrictId;
   wheelOpen: boolean;
   sfxEnabled: boolean;
+  overdriveMode: boolean;
   completedMissions: string[];
   toast: MissionToast | null;
   setWheelOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toggleSfx: () => void;
+  toggleOverdrive: () => void;
   addHeat: (amount?: number) => void;
   clearHeat: () => void;
-  triggerMission: (id: string, title: string, subtitle: string, reward?: string, tone?: "gold" | "cyan" | "pink") => void;
+  addRespect: (amount: number) => void;
+  triggerMission: (
+    id: string,
+    title: string,
+    subtitle: string,
+    reward?: string,
+    tone?: "gold" | "cyan" | "pink"
+  ) => void;
   playClick: () => void;
 }
 
@@ -45,16 +54,20 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const [activeDistrict, setActiveDistrict] = useState<DistrictId>("top");
   const [wheelOpen, setWheelOpen] = useState(false);
   const [sfxEnabled, setSfxEnabled] = useState(false);
+  const [overdriveMode, setOverdriveMode] = useState(false);
   const [completedMissions, setCompletedMissions] = useState<string[]>([]);
   const [toast, setToast] = useState<MissionToast | null>(null);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const cheatBufferRef = useRef("");
 
   const playTone = useCallback(
     (freqs: number[], duration = 0.09, type: OscillatorType = "triangle") => {
       if (!sfxEnabled || typeof window === "undefined") return;
       try {
-        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        const AudioCtx =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
         if (!AudioCtx) return;
         if (!audioCtxRef.current) {
           audioCtxRef.current = new AudioCtx();
@@ -90,12 +103,13 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     setSfxEnabled((prev) => !prev);
   }, []);
 
+  const toggleOverdrive = useCallback(() => {
+    setOverdriveMode((prev) => !prev);
+  }, []);
+
   const addHeat = useCallback(
     (amount = 1) => {
-      setWantedLevel((prev) => {
-        const next = Math.min(5, prev + amount);
-        return next;
-      });
+      setWantedLevel((prev) => Math.min(5, prev + amount));
       playTone([340, 480], 0.08, "sawtooth");
     },
     [playTone]
@@ -105,6 +119,23 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     setWantedLevel(0);
     playTone([440, 330], 0.08, "sine");
   }, [playTone]);
+
+  const addRespect = useCallback((amount: number) => {
+    setRespect((prev) => prev + amount);
+  }, []);
+
+  const showToast = useCallback(
+    (title: string, subtitle: string, reward: string, tone: "gold" | "cyan" | "pink" = "gold") => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      setToast({ id: Date.now(), title, subtitle, reward, tone });
+      playTone([392, 523.25, 659.25, 783.99], 0.14, "triangle");
+
+      toastTimerRef.current = setTimeout(() => {
+        setToast(null);
+      }, 3600);
+    },
+    [playTone]
+  );
 
   const triggerMission = useCallback(
     (
@@ -120,16 +151,9 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
         setWantedLevel((w) => Math.min(5, w + 1));
         return [...prev, id];
       });
-
-      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      setToast({ id: Date.now(), title, subtitle, reward, tone });
-      playTone([392, 523.25, 659.25, 783.99], 0.14, "triangle");
-
-      toastTimerRef.current = setTimeout(() => {
-        setToast(null);
-      }, 3600);
+      showToast(title, subtitle, reward, tone);
     },
-    [playTone]
+    [showToast]
   );
 
   // Track active district on scroll
@@ -151,7 +175,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Keyboard shortcut: TAB opens/closes Loadout Wheel, ESC closes it
+  // Keyboard shortcuts: TAB opens Loadout Wheel, ESC closes it, plus GTA Cheat Codes
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
@@ -164,13 +188,44 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       if (e.key === "Tab" && !isTyping) {
         e.preventDefault();
         setWheelOpen((prev) => !prev);
-      } else if (e.key === "Escape" && wheelOpen) {
+        return;
+      }
+      if (e.key === "Escape" && wheelOpen) {
         setWheelOpen(false);
+        return;
+      }
+
+      if (isTyping || e.key.length !== 1) return;
+
+      const nextBuf = (cheatBufferRef.current + e.key.toUpperCase()).slice(-12);
+      cheatBufferRef.current = nextBuf;
+
+      if (nextBuf.endsWith("HESOYAM")) {
+        cheatBufferRef.current = "";
+        setRespect((r) => r + 250000);
+        showToast("CHEAT ACTIVATED: HESOYAM", "Max Armor + Bankroll Boosted", "+$250,000", "gold");
+      } else if (nextBuf.endsWith("AEZAKMI")) {
+        cheatBufferRef.current = "";
+        setWantedLevel(0);
+        showToast("CHEAT ACTIVATED: AEZAKMI", "Wanted Level Cleared — Never Wanted", "0★ HEAT", "cyan");
+      } else if (nextBuf.endsWith("VICE")) {
+        cheatBufferRef.current = "";
+        setOverdriveMode((prev) => {
+          const next = !prev;
+          showToast(
+            next ? "VICE OVERDRIVE ENGAGED" : "VICE OVERDRIVE OFF",
+            next ? "Neon Skyline & Strobe Boost Active" : "Standard Leonida Atmosphere Restored",
+            next ? "MAX NEON" : "NORMAL",
+            "pink"
+          );
+          return next;
+        });
       }
     };
+
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [wheelOpen]);
+  }, [wheelOpen, showToast]);
 
   return (
     <GameContext.Provider
@@ -180,12 +235,15 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
         activeDistrict,
         wheelOpen,
         sfxEnabled,
+        overdriveMode,
         completedMissions,
         toast,
         setWheelOpen,
         toggleSfx,
+        toggleOverdrive,
         addHeat,
         clearHeat,
+        addRespect,
         triggerMission,
         playClick,
       }}
