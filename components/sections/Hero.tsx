@@ -139,7 +139,7 @@ export default function Hero() {
               className="clip-cut-sm inline-flex items-center gap-2 border border-vice-cyan/50 bg-vice-cyan/10 px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.15em] text-vice-cyan transition hover:bg-vice-cyan hover:text-vice-bg"
             >
               <Crosshair className="h-4 w-4" />
-              <span>ARSENAL [TAB]</span>
+              <span>TECH STACK [TAB]</span>
             </button>
 
             <a
