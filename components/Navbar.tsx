@@ -125,7 +125,7 @@ export default function Navbar() {
               ))}
             </button>
 
-            {/* Tech Stack Wheel Trigger */}
+            {/* Command Menu Trigger */}
             <button
               type="button"
               onClick={() => {
@@ -135,9 +135,9 @@ export default function Navbar() {
               className="clip-cut-sm flex items-center gap-1.5 border border-vice-cyan/50 bg-vice-cyan/10 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-vice-cyan transition hover:bg-vice-cyan hover:text-vice-bg"
             >
               <Crosshair className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Tech Stack</span>
+              <span className="hidden sm:inline">Command</span>
               <kbd className="hidden rounded bg-black/40 px-1 py-0.5 text-[9px] text-vice-gold md:inline">
-                TAB
+                ⌘K
               </kbd>
             </button>
 

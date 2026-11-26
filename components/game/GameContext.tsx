@@ -185,6 +185,11 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
           target.tagName === "TEXTAREA" ||
           target.isContentEditable);
 
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setWheelOpen((prev) => !prev);
+        return;
+      }
       if (e.key === "Tab" && !isTyping) {
         e.preventDefault();
         setWheelOpen((prev) => !prev);
