@@ -107,7 +107,7 @@ export default function TrackRecord() {
               className="clip-cut-sm inline-flex items-center gap-2 border border-vice-gold/50 bg-vice-gold/10 px-4 py-2.5 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-vice-gold transition hover:bg-vice-gold hover:text-vice-bg"
             >
               <Crosshair className="h-4 w-4" />
-              <span>INSPECT RADIAL WHEEL</span>
+              <span>OPEN COMMAND MENU</span>
             </button>
           </div>
 

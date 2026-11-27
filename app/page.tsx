@@ -6,7 +6,7 @@ import IntroLoader from "@/components/game/IntroLoader";
 import LiveOpsTicker from "@/components/game/LiveOpsTicker";
 import MissionToast from "@/components/game/MissionToast";
 import MinimapRadar from "@/components/game/MinimapRadar";
-import LoadoutWheel from "@/components/game/LoadoutWheel";
+import CommandMenu from "@/components/game/CommandMenu";
 import ViceRadio from "@/components/game/ViceRadio";
 import Hero from "@/components/sections/Hero";
 import BackendSystems from "@/components/sections/BackendSystems";
@@ -25,7 +25,7 @@ export default function Home() {
         <Navbar />
         <LiveOpsTicker />
         <MissionToast />
-        <LoadoutWheel />
+        <CommandMenu />
         <MinimapRadar />
         <ViceRadio />
         <Hero />
